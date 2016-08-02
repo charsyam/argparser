@@ -2,7 +2,6 @@
 
 #include <map>
 #include <string>
-#include <iostream>
 
 namespace utils {
 
@@ -163,15 +162,11 @@ public:
         options += getOptionString(getArgs(STRING), getNeedParam(STRING));
         options += getOptionString(getArgs(BOOLEAN), getNeedParam(BOOLEAN));
         options += getOptionString(getArgs(EXISTS), getNeedParam(EXISTS));
-        std::cout << options << std::endl;
         parse_opt(options.c_str());
-        
-        for (auto iter = argsMap_.begin(); iter != argsMap_.end(); iter++) {
-            int opt = (*iter).first;
-            std::string v = (*iter).second;
+    }
 
-            std::cout << (char)opt << " : " << v << std::endl;
-        }
+    const std::map<int, std::string> &getResult() {
+        return argsMap_;
     }
 
 private:
