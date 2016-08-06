@@ -71,7 +71,7 @@ public:
     }
 
     std::string getOptionString(std::map<int, struct Command> *args) {
-        std::string option;
+        std::string option = "";
         int needParam = 0;
         for (auto iter = args->begin(); iter != args->end(); iter++) {
             option += (char)((*iter).first); 
@@ -92,9 +92,11 @@ public:
     void parse_opt(const char *options) {
         int opt;
         opterr = 0;
+        //getopt is not repeatable so we must init getopt before starting
+        optind = 1;
         const char *value = nullptr;
 
-        while (-1 != (opt = getopt(argc_, argv_, options))) {
+        while (-1 != (opt = getopt(argc_, argv_, (char *)options))) {
             Type type = getType(opt);
             switch (type) {
                 case STRING:
@@ -136,13 +138,10 @@ public:
         }
     }
 
-    void parse() {
+    const std::map<int, std::string> &parse() {
         std::string options;
-        options += getOptionString(getArgs());
+        options = getOptionString(getArgs());
         parse_opt(options.c_str());
-    }
-
-    const std::map<int, std::string> &getResult() {
         return argsMap_;
     }
 

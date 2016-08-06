@@ -5,10 +5,9 @@ int main(int argc, char *argv[]) {
     utils::ArgParser argParser(argc, argv);
     argParser.add("-m", utils::ArgParser::STRING, "memory");
     argParser.add("-d", utils::ArgParser::EXISTS, "daemon");
-    argParser.add("-t", utils::ArgParser::BOOLEAN, "daemon");
-    argParser.parse();
+    argParser.add("-t", utils::ArgParser::BOOLEAN, "show error");
 
-    const std::map<int, std::string> &argsMap = argParser.getResult();
+    const std::map<int, std::string> &argsMap = argParser.parse();
     for (auto iter = argsMap.begin(); iter != argsMap.end(); iter++) {
         int opt = (*iter).first;
         std::string v = (*iter).second;

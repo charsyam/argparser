@@ -15,3 +15,8 @@ $(TARGET):  $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(TARGET)
+	cd tests && make clean && cd ..
+
+.PHONY: test
+test:
+	cd tests && make && ./unittest
